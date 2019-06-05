@@ -1,6 +1,6 @@
 package com.pf.busqueda.repository;
 
-import com.pf.Pasajero;
+import com.pf.busqueda.model.Pasajero;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
