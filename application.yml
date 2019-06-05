@@ -14,7 +14,15 @@
 #  file: "target/devicecacheupdater-service.log"
 
 swagger:
-  host: localhost:8080
+  host: localhost:9999
+
+oauth:
+  server: http://localhost:9000
+  sign_token: ${SIGN_TOKEN:}
+  client: ${CLIENT:my-client}
+  secret: ${SECRET:secret}
+  username: ${SECRETS_ADMIN_USER:my-client}
+  password: ${SECRETS_ADMIN_PASS:secret}
 
 # Specify the DNS URI of your Redis cache.
 spring:
@@ -29,3 +37,12 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+  security:
+    basic:
+      enabled: false
+    oauth2:
+      client:
+        accessTokenUri: https://localhost:9000/oauth2/token
+        userAuthorizationUri: https://localhost:9000/oauth2/auth
+        clientId: my-id
+        clientSecret: secret
