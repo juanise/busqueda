@@ -5,16 +5,18 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContextBuilder;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
-@SpringBootConfiguration
+@Configuration
 public class AppConfig {
 
     /**
@@ -30,7 +32,11 @@ public class AppConfig {
             final SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(builder.build());
             final CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
             requestFactory.setHttpClient(httpclient);
-            return new RestTemplate(requestFactory);
+            final RestTemplate restTemplate = new RestTemplate(requestFactory);
+            final List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+            interceptors.add(new RestTemplateSecurityInterceptor());
+            restTemplate.setInterceptors(interceptors);
+            return restTemplate;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } catch (KeyStoreException e) {

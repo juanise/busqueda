@@ -12,17 +12,23 @@
 #    org.hibernate: ERROR
 #    es.fermax.logging.aop: DEBUG
 #  file: "target/devicecacheupdater-service.log"
+server:
+  port: 8081
+  tomcat:
+    max-threads: 30
+    accesslog.enabled: true
 
 swagger:
   host: localhost:9999
 
 oauth:
-  server: http://localhost:9000
-  sign_token: ${SIGN_TOKEN:}
+  server: http://localhost:8090/oauth
+  sign_token: ${SIGN_TOKEN:this_needs_to_be_the_same_always_and_also_very_cuR3-._}
   client: ${CLIENT:my-client}
-  secret: ${SECRET:secret}
-  username: ${SECRETS_ADMIN_USER:my-client}
-  password: ${SECRETS_ADMIN_PASS:secret}
+  secret: ${SECRET:LHsE2s4mcQ85zgPGoba5SAgH-t0qVSM6Kh6vGuRL50ldtCg7j06dgtKkmjPzCTxXMiMxPjWKS9R6GJxtERMZ3Q}
+  username: ${SECRETS_ADMIN_USER:admin}
+  password: ${SECRETS_ADMIN_PASS:password}
+  server-token: https://localhost:8090/oauth/token
 
 # Specify the DNS URI of your Redis cache.
 spring:
@@ -30,19 +36,12 @@ spring:
     url: jdbc:mysql://localhost:3306/mydb?useSSL=false&serverTimezone=UTC
     username: root
     password: root
+    hikari:
+      connection-test-query: SELECT 1
   jpa:
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: update
+
   main:
     allow-bean-definition-overriding: true
-
-  security:
-    basic:
-      enabled: false
-    oauth2:
-      client:
-        accessTokenUri: https://localhost:9000/oauth2/token
-        userAuthorizationUri: https://localhost:9000/oauth2/auth
-        clientId: my-id
-        clientSecret: secret

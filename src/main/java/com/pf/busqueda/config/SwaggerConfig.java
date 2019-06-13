@@ -72,8 +72,8 @@ public class SwaggerConfig {
 
     private SecurityScheme securityScheme() {
         final AuthorizationCodeGrant grantType = new AuthorizationCodeGrantBuilder()
-                .tokenEndpoint(new TokenEndpoint(oauthServer + "/token", "oauthtoken"))
-                .tokenRequestEndpoint(new TokenRequestEndpoint(oauthServer + "/oauth2/token", oauthClientId, oauthClientId))
+                .tokenEndpoint(new TokenEndpoint(oauthServer + "/token", "token"))
+                .tokenRequestEndpoint(new TokenRequestEndpoint(oauthServer + "/authorize", oauthClientId, oauthClientId))
                 .build();
 
         return new OAuthBuilder().name("spring_oauth").grantTypes(Arrays.asList(grantType))
@@ -81,13 +81,13 @@ public class SwaggerConfig {
     }
 
     private AuthorizationScope[] scopes() {
-        return new AuthorizationScope[] { new AuthorizationScope("admin", "for admin operations"), new AuthorizationScope("user", "for user operations"), new AuthorizationScope("management", "for management operations")};
+        return new AuthorizationScope[] { new AuthorizationScope("admin", "for admin operations"), new AuthorizationScope("user", "for user operations"), new AuthorizationScope("management", "for management operations"), new AuthorizationScope("openid", "Para cosas"), new AuthorizationScope("offline", "para mas cosas")};
     }
 
     private SecurityContext securityContext(String version) {
         return SecurityContext.builder()
                 .securityReferences(Arrays.asList( new SecurityReference("spring_oauth", scopes())))
-                .forPaths(PathSelectors.regex("/api/$version.*")).build();
+                .forPaths(PathSelectors.regex(String.format("/api/%s.*", version))).build();
     }
 
 }
