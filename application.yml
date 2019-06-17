@@ -18,6 +18,16 @@ server:
     max-threads: 30
     accesslog.enabled: true
 
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
 swagger:
   host: localhost:9999
 
@@ -42,6 +52,9 @@ spring:
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: update
+      show_sql: true
+      format_sql: true
+      use_sql_comments: true
 
   main:
     allow-bean-definition-overriding: true

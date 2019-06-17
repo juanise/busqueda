@@ -28,20 +28,15 @@ public class SwaggerConfig {
     private String oauthClientId;
     @Value("${oauth.secret}")
     private String oauthClientSecret;
+
     @Bean
-    public Docket api() { 
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(userServiceApiInfo())
-                .groupName("DeviceActionService-api-1.0")
-                .ignoredParameterTypes(Pageable.class)
                 .select()
-                .paths(getPaths("v1"))
+                .paths(PathSelectors.any())
                 .apis(RequestHandlerSelectors.any())
-                .build()
-                .host("localhost:9999")
-                .useDefaultResponseMessages(false)
-                .securitySchemes(Arrays.asList(securityScheme()))
-                .securityContexts(Arrays.asList(securityContext("v1")));
+                .build();
     }
 
     /**
@@ -50,44 +45,9 @@ public class SwaggerConfig {
      */
     private ApiInfo userServiceApiInfo() {
         return new ApiInfoBuilder()
-                .title("DeviceAction Client Service")
+                .title("Busqueda Client Service")
                 .version("1.0")
                 .build();
-    }
-
-
-    /**
-     * Config paths.
-     *
-     * @return the predicate
-     */
-    private Predicate<String> getPaths(String version){
-        return PathSelectors.regex(String.format("/api/%s.*", version));
-    }
-
-    @Bean
-    SecurityConfiguration security() {
-        return SecurityConfigurationBuilder.builder().clientId(oauthClientId).clientSecret(oauthClientSecret).useBasicAuthenticationWithAccessCodeGrant(true).build();
-    }
-
-    private SecurityScheme securityScheme() {
-        final AuthorizationCodeGrant grantType = new AuthorizationCodeGrantBuilder()
-                .tokenEndpoint(new TokenEndpoint(oauthServer + "/token", "token"))
-                .tokenRequestEndpoint(new TokenRequestEndpoint(oauthServer + "/authorize", oauthClientId, oauthClientId))
-                .build();
-
-        return new OAuthBuilder().name("spring_oauth").grantTypes(Arrays.asList(grantType))
-                .scopes(Arrays.asList(scopes())).build();
-    }
-
-    private AuthorizationScope[] scopes() {
-        return new AuthorizationScope[] { new AuthorizationScope("admin", "for admin operations"), new AuthorizationScope("user", "for user operations"), new AuthorizationScope("management", "for management operations"), new AuthorizationScope("openid", "Para cosas"), new AuthorizationScope("offline", "para mas cosas")};
-    }
-
-    private SecurityContext securityContext(String version) {
-        return SecurityContext.builder()
-                .securityReferences(Arrays.asList( new SecurityReference("spring_oauth", scopes())))
-                .forPaths(PathSelectors.regex(String.format("/api/%s.*", version))).build();
     }
 
 }

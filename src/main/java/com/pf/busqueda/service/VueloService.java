@@ -21,7 +21,8 @@ public class VueloService {
     }
 
     public List<Vuelo> getVuelos(String origen, String destino, Date fechaVuelo){
-        return vueloRepository.getVuelos(origen, destino, fechaVuelo);
+        List list =  vueloRepository.getVuelos(origen, destino, fechaVuelo);
+        return list;
     }
 
     public List<Q3DTO> getVuelosContratados(Integer idagencia){

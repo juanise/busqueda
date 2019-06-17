@@ -5,6 +5,7 @@ import com.pf.busqueda.service.VueloService;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -23,10 +25,12 @@ public class BusquedaController {
 
     @GetMapping("/vuelos")
     public ResponseEntity<List<Vuelo>> getVuelos(
-            @Valid @ApiParam (name = "origen", value = "Aeropuerto origen") @RequestParam(value = "origen") String origen,
-            @Valid @ApiParam(name = "destino", value = "Aeropuerto destino") @RequestParam(value = "destino") String destino,
-            @Valid @ApiParam(name = "fechaVuelo", value = "Fecha salida") @RequestParam(value = "destino") Date fechaVuelo){
-        return new ResponseEntity<List<Vuelo>>(vueloService.getVuelos(origen, destino, fechaVuelo), HttpStatus.OK);
+            @ApiParam (name = "origen", value = "Aeropuerto origen") @RequestParam(value = "origen", defaultValue = "00AA") String origen,
+            @ApiParam(name = "destino", value = "Aeropuerto destino") @RequestParam(value = "destino", defaultValue = "00A") String destino,
+            @ApiParam(name = "fechaVuelo", value = "Fecha salida") @RequestParam(value = "fechaVuelo", defaultValue = "05-06-2019") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate fechaVuelo){
+        return new ResponseEntity<>(vueloService.getVuelos(origen, destino, java.sql.Date.valueOf(fechaVuelo)), HttpStatus.OK);
     }
+
+
 
 }
