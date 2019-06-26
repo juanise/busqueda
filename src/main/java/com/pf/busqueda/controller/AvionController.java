@@ -26,14 +26,13 @@ public class AvionController {
     @Autowired
     private AvionService avionService;
 
-    @GetMapping("/avion/{id}")
+    @GetMapping("/aviones/{id}")
     public Resource<Avion> getById (@PathVariable(value = "id") Integer id){
         return new Resource<>(avionService.findById(id).orElse(null));
     }
 
-    @GetMapping("/avion")
+    @GetMapping("/aviones")
     public Resources<Resource<Avion>> getAll(){
-        final List<Resource<Avion>> list = StreamSupport.stream(avionService.findAll().spliterator(), false).map(avionResourceAssembler::toResource).collect(Collectors.toList());
-        return new Resources<>(list);
+        return new Resources<>(StreamSupport.stream(avionService.findAll().spliterator(), false).map(avionResourceAssembler::toResource).collect(Collectors.toList()));
     }
 }

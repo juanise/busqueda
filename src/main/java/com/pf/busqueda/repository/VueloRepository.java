@@ -1,7 +1,7 @@
 package com.pf.busqueda.repository;
 
 import com.pf.busqueda.model.Vuelo;
-import com.pf.busqueda.model.dto.Q3DTO;
+import com.pf.busqueda.model.dto.EmbarqueDTO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -23,6 +23,10 @@ public interface VueloRepository extends CrudRepository<Vuelo, Integer> {
     List<Vuelo> getVuelosConPlazaDisponible(@Param(value = "origen") String idOrigen, @Param(value = "destino") String idDestino, @Param(value = "numPasajeros") Integer numPasajeros, @Param(value = "fecha") Date fecha, @Param(value = "tipoVuelo") Boolean tipoVuelo);
 
     @Query(value = "select v.* FROM vuelo v left join reserva r on v.idvuelo = r.fk_idvuelo_ida or v.idvuelo = r.fk_idvuelo_vuelta left join agencia_de_viajes a ON a.idagencia = r.fk_idagencia WHERE a.idagencia = :idagencia", nativeQuery = true)
-    List<Q3DTO> getVuelosContratados(@Param(value = "idagencia") Integer idagencia);
+    List<Vuelo> getVuelosContratados(@Param(value = "idagencia") Integer idagencia);
 
+    @Query(value = "SELECT * FROM mydb.reserva r, mydb.vuelo v " +
+    "WHERE v.idvuelo = r.fk_idvuelo_ida AND r.estado_reserva = 'confirmado' AND "+ "r.numero_asiento IS NOT NULL " +
+    "AND timestampdiff(HOUR, current_timestamp(), v.fecha_de_salida)<24 ", nativeQuery = true)
+    List<EmbarqueDTO> getEmbarquesPendientesToDTO(Integer idVuelo);
 }

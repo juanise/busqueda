@@ -4,8 +4,6 @@ import com.pf.busqueda.model.Avion;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface AvionRepository extends CrudRepository<Avion, Integer> {
 }

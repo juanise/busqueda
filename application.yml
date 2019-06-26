@@ -58,3 +58,14 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
+
+  rabbitmq:
+    host: ${RABBIT_HOST:localhost}
+    virtual-host: ${RABBIT_VHOST:distribuidos}
+    port: 5672
+    username: ${RABBITMQ_USER_ROOT:twcam-pls}
+    password: ${RABBITMQ_PWD_ROOT:twcam-pls}
+
+rabbitmq:
+  exchange_name:
+    pago: pago-exchange-distribuidos

@@ -1,15 +1,14 @@
 package com.pf.busqueda.service;
 
 import com.pf.busqueda.model.Vuelo;
-import com.pf.busqueda.model.dto.Q3DTO;
+import com.pf.busqueda.model.dto.EmbarqueDTO;
 import com.pf.busqueda.repository.VueloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VueloService {
@@ -21,11 +20,18 @@ public class VueloService {
     }
 
     public List<Vuelo> getVuelos(String origen, String destino, Date fechaVuelo){
-        List list =  vueloRepository.getVuelos(origen, destino, fechaVuelo);
-        return list;
+        return vueloRepository.getVuelos(origen, destino, fechaVuelo);
     }
 
-    public List<Q3DTO> getVuelosContratados(Integer idagencia){
+    public List<Vuelo> getVuelosContratados(Integer idagencia){
         return vueloRepository.getVuelosContratados(idagencia);
+    }
+
+    public Optional<Vuelo> findById(Integer id) {
+        return vueloRepository.findById(id);
+    }
+
+    public List<EmbarqueDTO> getEmbarquesPendientes(Integer idVuelo) {
+        return vueloRepository.getEmbarquesPendientesToDTO(idVuelo);
     }
 }

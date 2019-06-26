@@ -14,9 +14,9 @@ public class AvionResourceAssembler implements ResourceAssembler<Avion, Resource
 
 	@Override
 	public Resource<Avion> toResource(Avion entity) {
-		return new Resource<Avion>(entity,
+		return new Resource<>(entity,
 				linkTo(methodOn(AvionController.class).getById(entity.getId())).withSelfRel(),
-				linkTo(methodOn(AvionController.class).getAll()).withRel("avion"));
+				linkTo(methodOn(AvionController.class).getAll()).withRel("aviones"));
 	}
 
 }
