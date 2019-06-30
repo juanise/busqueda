@@ -18,11 +18,14 @@ public class Reserva {
     @Column(name = "fecha_de_reserva")
     private Date fechaReserva;
     @Column(name = "costo_total_reserva")
-    private Boolean costoReserva;
+    private Integer costoReserva;
     @Column(name = "numero_asiento")
     private String numeroAsiento;
     @Column(name = "estado_reserva")
     private String estadoReserva;
+    @ManyToOne
+    @JoinColumn(name = "fk_pasajero_id_pasajero")
+    private Pasajero pasajero;
     @ManyToOne
     @JoinColumn(name = "fk_idagencia")
     private AgenciaViajes agenciaViajes;
