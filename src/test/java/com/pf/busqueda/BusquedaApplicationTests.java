@@ -57,6 +57,7 @@ public class BusquedaApplicationTests {
 
         BDDMockito.given(pasajeroRepository.getPasajerosPrioritariosMasDeUno()).willReturn(PASAJEROS);
         BDDMockito.given(aeropuertoRepository.getCiudadesMayorFacturacion()).willReturn(CIUDADES);
+        BDDMockito.given(aeropuertoRepository.getImporteTotalReservasSeisMeses()).willReturn(IMPORTES_RESERVAS);
     }
 
     @Test
