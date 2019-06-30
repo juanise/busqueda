@@ -12,13 +12,27 @@ services:
        SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydb?useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
        SPRING_DATASOURCE_USERNAME: root
        SPRING_DATASOURCE_PASSWORD: root
-       SWAGGER_HOST: localhost:9999
        RABBIT_HOST: rabbitmq
        RABBIT_VHOST: distribuidos
        RABBITMQ_USER_ROOT: twcam-pls
        RABBITMQ_PWD_ROOT: twcam-pls   
      depends_on: 
        - mysql
+       - rabbitmq
+     restart: on-failure
+
+  api_pago:
+     image: twcammaster.uv.es/proyecto1-api-pago:latest
+     ports:
+       - "8082:8082"
+     networks: 
+       - backend
+     environment:
+       RABBIT_HOST: rabbitmq
+       RABBIT_VHOST: distribuidos
+       RABBITMQ_USER_ROOT: twcam-pls
+       RABBITMQ_PWD_ROOT: twcam-pls   
+     depends_on: 
        - rabbitmq
      restart: on-failure
 

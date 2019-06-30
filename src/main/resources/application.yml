@@ -27,9 +27,9 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
-SWAGGER_HOST: localhost:9999
+
 swagger:
-  host: ${SWAGGER_HOST}
+  host: ${SWAGGER_HOST:localhost:9999}
 
 oauth:
   server: http://localhost:8090/oauth
@@ -41,19 +41,12 @@ oauth:
   server-token: https://localhost:8090/oauth/token
 
 # Specify the DNS URI of your Redis cache.
-SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/mydb?useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
-SPRING_DATASOURCE_USERNAME: root
-SPRING_DATASOURCE_PASSWORD: root
-RABBIT_HOST: localhost
-RABBIT_VHOST: distribuidos
-RABBITMQ_USER_ROOT: twcam-pls
-RABBITMQ_PWD_ROOT: twcam-pls
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/mydb?useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false}
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}
     hikari:
       connection-test-query: SELECT 1
   jpa:
@@ -68,11 +61,11 @@ spring:
     allow-bean-definition-overriding: true
 
   rabbitmq:
-    host: ${RABBIT_HOST}
-    virtual-host: ${RABBIT_VHOST}
+    host: ${RABBIT_HOST:localhost}
+    virtual-host: ${RABBIT_VHOST:distribuidos}
     port: 5672
-    username: ${RABBITMQ_USER_ROOT}
-    password: ${RABBITMQ_PWD_ROOT}
+    username: ${RABBITMQ_USER_ROOT:twcam-pls}
+    password: ${RABBITMQ_PWD_ROOT:twcam-pls}
 
 rabbitmq:
   exchange_name:
