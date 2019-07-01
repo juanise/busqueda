@@ -185,7 +185,7 @@ CREATE TABLE `vuelo` (
   `idvuelo` int(11) NOT NULL,
   `fecha_de_salida` date NOT NULL,
   `fecha_de_llegada` date NOT NULL,
-  `tarjeta_embarque` varchar(45) NOT NULL,
+  `tarjeta_de_embarque` varchar(45) NOT NULL,
   `tarifas` float NOT NULL COMMENT 'Cuando se cree un vuelo, se realizá un count de la tabla asientos para saber la capacidad\n\nSelect count (*) from asientos where avion_vuelo_idvuelo = avion_idavion',
   `estado_del_vuelo` tinyint(4) NOT NULL DEFAULT '0',
   `fk_aeropuerto_origen` varchar(45) NOT NULL,
