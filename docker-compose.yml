@@ -52,15 +52,10 @@ services:
     image: twcammaster.uv.es/proyecto1-rabbitmq-server:latest
     ports:
       - "15672:15672"
-      - "4369:4369"
       - "5672:5672"
-      - "25672:25672"
       - "35197:35197"
     networks: 
       - backend
-    environment:
-      WAIT_HOST: mysql:3306
-      RABBITMQ_ERLANG_COOKIE: 'example secret'
     restart: on-failure
      
   mysql:
