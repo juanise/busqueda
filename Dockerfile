@@ -1,10 +1,11 @@
 FROM openjdk:8
 
 MAINTAINER "TWCAM"
-
+# # Agregue su aplicación a la imagen acoplable 
 ADD target/busqueda-0.0.1.jar busqueda-0.0.1.jar
 EXPOSE 8081
-ENTRYPOINT [ "java", "-jar", "busqueda-0.0.1.jar" ]
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.2.1/wait /wait
+# # Agregue el script de espera a la imagen 
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.5.0/wait /wait
 RUN chmod +x /wait
 CMD /wait
+ENTRYPOINT [ "java", "-jar", "busqueda-0.0.1.jar" ]
