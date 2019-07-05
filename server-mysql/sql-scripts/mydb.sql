@@ -150,7 +150,7 @@ CREATE TABLE `reserva` (
   `costo_total_reserva` int(11) NOT NULL,
   `fk_pasajero_id_pasajero` int(11) NOT NULL,
   `fk_idvuelo_ida` int(11) NOT NULL,
-  `fk_idvuelo_vuelta` int(11) NOT NULL,
+  `fk_idvuelo_vuelta` int(11) NULL,
   `fk_idagencia` int(11) NOT NULL,
   PRIMARY KEY (`id_tarjeta_embarque`),
   KEY `fk_reserva_pasajero1_idx` (`fk_pasajero_id_pasajero`),
