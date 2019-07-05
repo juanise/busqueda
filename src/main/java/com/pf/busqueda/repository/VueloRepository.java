@@ -42,13 +42,13 @@ public interface VueloRepository extends CrudRepository<Vuelo, Integer> {
     List<EmbarqueDTO> getEmbarquesPendientesToDTO(@Param(value = "idVuelo") Integer idVuelo);
 
     // Q5a
-    @Query(value = "UPDATE mydb.reserva r SET r.numero_asiento = :numAsiento WHERE r.fk_idvuelo_ida= :idvuelo AND datediff(current_date(), r.fecha_de_reserva)>=7 AND r.id_tarjeta_embarque= :tarjetaEmbarque", nativeQuery = true)
+    @Query(value = "UPDATE mydb.reserva r SET r.numero_asiento = :numAsiento WHERE r.fk_idvuelo_ida= :idVuelo AND datediff(current_date(), r.fecha_de_reserva)>=7 AND r.id_tarjeta_embarque= :tarjetaEmbarque", nativeQuery = true)
     void updateReserva(@Param(value = "numAsiento") String numAsiento,
                        @Param(value = "idVuelo") Integer idVuelo,
                        @Param(value = "tarjetaEmbarque") String tarjetaEmbarque);
 
     // Q5b
-    @Query(value = "UPDATE mydb.reserva r  SET r.estado_reserva = 'cancelada' WHERE r.fk_idvuelo_ida = :idvuelo AND datediff(current_date(), r.fecha_de_reserva)>=7 AND r.id_tarjeta_embarque = :tarjetaEmbarque", nativeQuery = true)
+    @Query(value = "UPDATE mydb.reserva r  SET r.estado_reserva = 'cancelada' WHERE r.fk_idvuelo_ida = :idVuelo AND datediff(current_date(), r.fecha_de_reserva)>=7 AND r.id_tarjeta_embarque = :tarjetaEmbarque", nativeQuery = true)
     void cancelarReserva(@Param(value = "idVuelo") Integer idVuelo,
                          @Param(value = "tarjetaEmbarque") String tarjetaEmbarque);
 }

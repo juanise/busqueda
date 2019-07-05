@@ -10,10 +10,7 @@ import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -21,7 +18,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-@RestController("/busqueda")
+@RestController("/vuelo")
+@RequestMapping("/vuelo")
 public class VueloController {
 
     @Autowired
@@ -30,7 +28,7 @@ public class VueloController {
     @Autowired
     private VueloResourceAssembler vueloResourceAssembler;
 
-    @GetMapping("/vuelos")
+    @GetMapping
     public ResponseEntity<List<Vuelo>> getVuelos(
             @ApiParam (name = "origen", value = "Aeropuerto origen") @RequestParam(value = "origen", defaultValue = "00AA") String origen,
             @ApiParam(name = "destino", value = "Aeropuerto destino") @RequestParam(value = "destino", defaultValue = "00A") String destino,
@@ -39,20 +37,20 @@ public class VueloController {
         return new ResponseEntity<>(vueloService.getVuelos(origen, destino, java.sql.Date.valueOf(fechaVuelo)), HttpStatus.OK);
     }
 
-    @GetMapping("/vuelos/{idAgencia}/agencia")
+    @GetMapping("/{idAgencia}/agencia")
     public Resources<Resource<Vuelo>> getVuelosContratadosAgencia(@PathVariable("idAgencia") Integer idAgencia){
 
         final Iterable<Vuelo> list = vueloService.getVuelosContratados(idAgencia);
         return new Resources<>(StreamSupport.stream(list.spliterator(), false).map(vueloResourceAssembler::toResource).collect(Collectors.toList()));
     }
 
-    @GetMapping("/vuelos/{id}/")
+    @GetMapping("/{id}/")
     public Resource<Vuelo> getById(@PathVariable("id") Integer id){
 
         return vueloResourceAssembler.toResource(vueloService.findById(id).orElse(null));
     }
 
-    @GetMapping("/vuelos/con-plaza")
+    @GetMapping("/con-plaza")
     public Resources<Resource<Vuelo>> getVuelosConPLazaDisponible(
             @ApiParam(name = "idOrigen", value = "Origen") @RequestParam(value = "idOrigen", defaultValue = "00AA") String idOrigen,
             @ApiParam(name = "idDestino", value = "Destino") @RequestParam(value = "idDestino", defaultValue = "00A") String idDestino,

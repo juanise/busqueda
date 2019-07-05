@@ -16,7 +16,7 @@ public class AvionResourceAssembler implements ResourceAssembler<Avion, Resource
 	public Resource<Avion> toResource(Avion entity) {
 		return new Resource<>(entity,
 				linkTo(methodOn(AvionController.class).getById(entity.getId())).withSelfRel(),
-				linkTo(methodOn(AvionController.class).getAll()).withRel("aviones"));
+				linkTo(methodOn(AvionController.class).getAllAviones()).withRel("avion"));
 	}
 
 }

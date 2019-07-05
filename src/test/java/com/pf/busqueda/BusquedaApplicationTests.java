@@ -42,7 +42,7 @@ public class BusquedaApplicationTests {
     private static final List<EmbarqueDTO> EMBARQUES = TestUtils.getembarques();
     private static final List<Pasajero> PASAJEROS = TestUtils.getPasajeros();
     private static final List<String> CIUDADES = TestUtils.getCiudades();
-    private static final List<BigDecimal> IMPORTES_RESERVAS = TestUtils.getImportesReservas();
+    private static final List<Double> IMPORTES_RESERVAS = TestUtils.getImportesReservas();
 
     @Before
     public void setup() throws ParseException {

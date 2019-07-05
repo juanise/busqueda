@@ -18,10 +18,11 @@ public interface AeropuertoRepository extends CrudRepository<Aeropuertos, String
             "ORDER BY Importe_Total DESC\n" +
             "LIMIT 10", nativeQuery = true)
     List<String> getCiudadesMayorFacturacion();
-    @Query(value = "SELECT month(Fecha_de_reserva) AS Mes, SUM(costo_total_reserva) AS costo_total \n" +
+    @Query(value =
+            "SELECT month(Fecha_de_reserva) AS Mes, SUM(costo_total_reserva) AS costo_total \n" +
             "FROM reserva \n" +
             "WHERE date_sub(sysdate(),\n" +
-            "INTERVAL 6 MONTH)<= fecha_de_reserva AND estado_reserva = 'confirmado’\n" +
+            "INTERVAL 6 MONTH)<= fecha_de_reserva AND estado_reserva = 'confirmado'\n" +
             "GROUP BY month(fecha_de_reserva)", nativeQuery = true)
-    List<BigDecimal> getImporteTotalReservasSeisMeses();
+    List<Double> getImporteTotalReservasSeisMeses();
 }

@@ -69,14 +69,14 @@ public final class TestUtils {
         return ciudades;
     }
 
-    public static List<BigDecimal> getImportesReservas() {
-        final List<BigDecimal> importes = new ArrayList<>();
-        importes.add(BigDecimal.valueOf(1000D));
-        importes.add(BigDecimal.valueOf(2000D));
-        importes.add(BigDecimal.valueOf(3000D));
-        importes.add(BigDecimal.valueOf(4000D));
-        importes.add(BigDecimal.valueOf(5000D));
-        importes.add(BigDecimal.valueOf(6000D));
+    public static List<Double> getImportesReservas() {
+        final List<Double> importes = new ArrayList<>();
+        importes.add(Double.valueOf(1000D));
+        importes.add(Double.valueOf(2000D));
+        importes.add(Double.valueOf(3000D));
+        importes.add(Double.valueOf(4000D));
+        importes.add(Double.valueOf(5000D));
+        importes.add(Double.valueOf(6000D));
         return importes;
     }
 }

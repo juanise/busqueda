@@ -16,7 +16,7 @@ public class AeropuertoService {
         return aeropuertoRepository.getCiudadesMayorFacturacion();
     }
 
-    public List<BigDecimal> getImporteTotalReservasSeisMeses(){
+    public List<Double> getImporteTotalReservasSeisMeses(){
         return aeropuertoRepository.getImporteTotalReservasSeisMeses();
     }
 }
