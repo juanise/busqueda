@@ -1,17 +1,4 @@
-#server:
-#  port: 15262
-#  error.whitelabel.enabled: false
-#  tomcat:
-#    accesslog.enabled: true
-#    max-threads: 30
-#  servlet.context-path: /devicescacheupdater
-    
-#logging:
-#  level:
-#    org.springframework.web: INFO
-#    org.hibernate: ERROR
-#    es.fermax.logging.aop: DEBUG
-#  file: "target/devicecacheupdater-service.log"
+
 server:
   port: 8081
   tomcat:
@@ -27,9 +14,6 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
-
-swagger:
-  host: ${SWAGGER_HOST:localhost:9999}
 
 oauth:
   server: http://localhost:8090/oauth
