@@ -82,6 +82,6 @@ public class BusquedaApplicationTests {
     @Test
     public void aeropuertoTest(){
         Assert.assertArrayEquals(CIUDADES.toArray(new String[0]), aeropuertoService.getCiudadesMayorFacturacion().toArray(new String[0]));
-        Assert.assertArrayEquals(IMPORTES_RESERVAS.toArray(new BigDecimal[0]), aeropuertoService.getImporteTotalReservasSeisMeses().toArray(new BigDecimal[0]));
+        Assert.assertArrayEquals(IMPORTES_RESERVAS.toArray(new Double[0]), aeropuertoService.getImporteTotalReservasSeisMeses().toArray(new Double[0]));
     }
 }

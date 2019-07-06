@@ -1,12 +1,16 @@
 package com.pf.busqueda.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 @Entity(name = "pasajero")
 public class Pasajero {
     @Id

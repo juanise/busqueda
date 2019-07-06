@@ -1,11 +1,15 @@
 package com.pf.busqueda.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 @Entity(name = "reserva")
 public class Reserva {
     @Id
