@@ -27,6 +27,9 @@ oauth:
 # Specify the DNS URI of your Redis cache.
 
 spring:
+  flyway:
+    baselineOnMigrate: true
+    enabled: true
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/mydb?useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false}
     username: ${SPRING_DATASOURCE_USERNAME:root}
