@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 public class Vuelo {
     @Id
-    @Column(name = "id_vuelo")
+    @Column(name = "idvuelo")
     private Integer id;
     @Column(name = "fecha_de_salida")
     private Date fechaSalida;

@@ -1,0 +1,81 @@
+version: "3.7"
+services:
+  
+  api_busqueda:
+     image: twcammaster.uv.es/proyecto1-api-busqueda:latest
+     ports:
+       - "8081:8081"
+     networks: 
+       - backend
+     environment:
+       WAIT_HOST: mysql:3306
+       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydb?useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+       SPRING_DATASOURCE_USERNAME: root
+       SPRING_DATASOURCE_PASSWORD: root
+       RABBIT_HOST: rabbitmq
+       RABBIT_VHOST: distribuidos
+       RABBITMQ_USER_ROOT: twcam-pls
+       RABBITMQ_PWD_ROOT: twcam-pls   
+     depends_on: 
+       - mysql
+       - rabbitmq
+     restart: on-failure
+
+  api_pago:
+     image: twcammaster.uv.es/proyecto1-api-pago:latest
+     ports:
+       - "8082:8082"
+     networks: 
+       - backend
+     environment:
+       RABBIT_HOST: rabbitmq
+       RABBIT_VHOST: distribuidos
+       RABBITMQ_USER_ROOT: twcam-pls
+       RABBITMQ_PWD_ROOT: twcam-pls   
+     depends_on: 
+       - rabbitmq
+     restart: on-failure
+
+  #api_pago:
+  #   image: wmoinar/boarding
+  #   ports:
+  #     - "8081:8080"
+  #   networks: 
+  #     - test
+  #   environment:
+  #     WAIT_HOST: mongo:27017
+  #   depends_on: 
+  #     - mongo
+  #   restart: on-failure
+
+  rabbitmq:
+    image: twcammaster.uv.es/proyecto1-rabbitmq-server:latest
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+      - "35197:35197"
+    networks: 
+      - backend
+    restart: on-failure
+     
+  mysql:
+    image: twcammaster.uv.es/proyecto1-mysql-server
+    ports:
+      - "3306:3306"
+    networks: 
+      - backend
+    environment:
+      - MYSQL_USER=springuser
+      - MYSQL_PASSWORD=ThePassword
+      - MYSQL_ROOT_PASSWORD=root
+
+  # mongo:
+  #   image: mongo
+  #   ports:
+  #     - "27017:27017"
+  #   networks: 
+  #     - test
+  #   restart: on-failure
+
+networks: 
+ backend:

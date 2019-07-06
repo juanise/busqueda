@@ -1,0 +1,54 @@
+{
+    "rabbit_version": "3.5.7",
+    "users": [{
+        "name": "twcam-pls",
+        "password": "twcam-pls",
+        "tags": "administrator"
+        }],
+    "vhosts": [{
+            "name": "/"
+        }, {
+            "name": "distribuidos"
+        }],
+    "permissions": [{
+            "user": "twcam-pls",
+            "vhost": "/",
+            "configure": ".*",
+            "write": ".*",
+            "read": ".*"
+        }, {
+            "user": "twcam-pls",
+            "vhost": "distribuidos",
+            "configure": ".*",
+            "write": ".*",
+            "read": ".*"
+        }],
+    "parameters": [],
+    "policies": [],
+    "queues": [{
+            "name": "twcam-queue",
+            "vhost": "distribuidos",
+            "durable": true,
+            "auto_delete": false,
+            "arguments": {
+                "x-max-length": 5
+            }
+        }],
+    "exchanges": [{
+            "name": "twcam-exchange",
+            "vhost": "distribuidos",
+            "type": "fanout",
+            "durable": true,
+            "auto_delete": false,
+            "internal": false,
+            "arguments": {}
+        }],
+    "bindings": [{
+            "source": "twcam-exchange",
+            "vhost": "distribuidos",
+            "destination": "twcam-queue",
+            "destination_type": "queue",
+            "routing_key": "",
+            "arguments": {}
+        }]
+}
